@@ -1,0 +1,34 @@
+@model Quizzer.Models.QuizzViewModels.CreateVm
+@{
+    ViewData["Title"] = "New quizz";
+}
+
+<div class="row">
+    <h1 class="display-4">New quizz</h1>
+    
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" autofocus />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <br />
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" autofocus />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <br />
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+@model Quizzer.Models.QuizzViewModels.DetailsVm
+
+@{
+    ViewData["Title"] = "Quizz";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Quizz</h1>
+    
+    <p><a asp-action="Index">All quizzes</a></p>
+    
+    <p>@Model.Title</p>
+    <p>@Model.Description</p>
+</div>

@@ -6,7 +6,10 @@ namespace Quizzer.Repositories;
 
 public class QuizzRepository(ApplicationDbContext context) : Repository<Quizz>(context)
 {
-	public async Task<ICollection<Quizz>> GetAllIncludingAsync() => await context.Quizzes
-			.Include(quizz => quizz.Questions)
-			.ToListAsync();
+	private readonly ApplicationDbContext _context = context;
+
+	public async Task<ICollection<Quizz>> GetAllIncludingAsync() => await _context.Quizzes
+		.OrderBy(x => x.CreatedAt)
+		.Include(quizz => quizz.Questions)
+		.ToListAsync();
 }

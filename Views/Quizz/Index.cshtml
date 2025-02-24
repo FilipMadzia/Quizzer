@@ -1,0 +1,16 @@
+@model IList<Quizzer.Models.QuizzViewModels.DetailsVm>
+
+@{
+    ViewData["Title"] = "Quizzes";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Quizzes</h1>
+    
+    <p><a asp-action="Create">New quizz</a></p>
+    
+    @foreach (var quizz in Model)
+    {
+        <p><a asp-action="Details" asp-route-id="@quizz.Id">@quizz.Title</a></p>
+    }
+</div>
