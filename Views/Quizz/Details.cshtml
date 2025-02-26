@@ -1,4 +1,4 @@
-@model Quizzer.Models.QuizzViewModels.DetailsVm
+@model Quizzer.Models.QuizzVm.QuizzDetailsVm
 
 @{
     ViewData["Title"] = "Quizz";
@@ -11,4 +11,16 @@
     
     <p>@Model.Title</p>
     <p>@Model.Description</p>
+    
+    @foreach (var question in Model.Questions)
+    {
+        <p>@question.QuestionText</p>
+        
+        <ul>
+            @foreach (var answer in question.Answers)
+            {
+                <li>@answer</li>
+            }
+        </ul>
+    }
 </div>

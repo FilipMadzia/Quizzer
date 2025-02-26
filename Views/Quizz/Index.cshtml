@@ -1,4 +1,4 @@
-@model IList<Quizzer.Models.QuizzViewModels.DetailsVm>
+@model Quizzer.Models.QuizzVm.QuizzIndexVm
 
 @{
     ViewData["Title"] = "Quizzes";
@@ -9,7 +9,7 @@
     
     <p><a asp-action="Create">New quizz</a></p>
     
-    @foreach (var quizz in Model)
+    @foreach (var quizz in Model.Quizzes)
     {
         <p><a asp-action="Details" asp-route-id="@quizz.Id">@quizz.Title</a></p>
     }

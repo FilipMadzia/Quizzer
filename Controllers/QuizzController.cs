@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Quizzer.Models.QuizzViewModels;
+using NuGet.Packaging;
+using Quizzer.Models.QuizzVm;
 using Quizzer.Repositories;
 
 namespace Quizzer.Controllers;
@@ -10,9 +11,9 @@ public class QuizzController(QuizzRepository repository) : Controller
 	{
 		var entities = await repository.GetAllAsync();
 		
-		var models = entities.Select(DetailsVm.FromEntity).ToList();
+		var model = QuizzIndexVm.FromEntities(entities);
 		
-		return View(models);
+		return View(model);
 	}
 
 	public async Task<IActionResult> Details(Guid id)
@@ -22,20 +23,48 @@ public class QuizzController(QuizzRepository repository) : Controller
 		if (entity == null)
 			return NotFound();
 		
-		var model = DetailsVm.FromEntity(entity);
+		entity.Questions.AddRange(
+		[
+			new()
+			{
+				QuestionText = "Test 1",
+				Answers =
+				[
+					"Wrong 1",
+					"Wrong 2",
+					"Wrong 3",
+					"Correct"
+				],
+				CorrectAnswerIndex = 3
+			},
+			new()
+			{
+				QuestionText = "Test 2",
+				Answers =
+				[
+					"Wrong 1",
+					"Correct",
+					"Wrong 2",
+					"Wrong 3"
+				],
+				CorrectAnswerIndex = 1
+			}
+		]);
+		
+		var model = QuizzDetailsVm.FromEntity(entity);
 		
 		return View(model);
 	}
 
 	public IActionResult Create()
 	{
-		var model = new CreateVm();
+		var model = new CreateQuizzVm();
 
 		return View(model);
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> Create(CreateVm model)
+	public async Task<IActionResult> Create(CreateQuizzVm model)
 	{
 		var entity = model.ToEntity();
 		

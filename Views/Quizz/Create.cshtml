@@ -1,4 +1,4 @@
-@model Quizzer.Models.QuizzViewModels.CreateVm
+@model Quizzer.Models.QuizzVm.CreateQuizzVm
 @{
     ViewData["Title"] = "New quizz";
 }
@@ -25,6 +25,18 @@
             </div>
 
             <br />
+            
+            <div class="form-group" id="questions">
+                
+            </div>
+            
+            <br />
+
+            <div class="form-group">
+                <button type="button" onclick="addQuestion()">Add Question</button>
+            </div>
+            
+            <br />
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -32,3 +44,33 @@
         </form>
     </div>
 </div>
+
+@section Scripts
+{
+    <script>
+        function addQuestion() {
+            const questionDiv = document.createElement('div');
+            questionDiv.classList.add('form-group');
+
+            questionDiv.innerHTML = `
+            <label>Question Text</label>
+            <input name="Questions[${document.querySelectorAll('#questions .form-group').length}].QuestionText" class="form-control" />
+
+            <br />
+
+            <label>Answers</label>
+            <input name="Questions[${document.querySelectorAll('#questions .form-group').length}].Answers[0]" class="form-control" />
+            <input name="Questions[${document.querySelectorAll('#questions .form-group').length}].Answers[1]" class="form-control" />
+            <input name="Questions[${document.querySelectorAll('#questions .form-group').length}].Answers[2]" class="form-control" />
+            <input name="Questions[${document.querySelectorAll('#questions .form-group').length}].Answers[3]" class="form-control" />
+
+            <br />
+
+            <label>Correct Answer Index</label>
+            <input name="Questions[${document.querySelectorAll('#questions .form-group').length}].CorrectAnswerIndex" class="form-control" />
+        `;
+
+            document.getElementById('questions').appendChild(questionDiv);
+        }
+    </script>
+}
