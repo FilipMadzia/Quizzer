@@ -5,6 +5,7 @@ using Quizzer.Repositories;
 
 namespace Quizzer.Controllers;
 
+[Route("[controller]es/[action]")]
 public class QuizzController(QuizzRepository repository) : Controller
 {
 	public async Task<IActionResult> Index()
