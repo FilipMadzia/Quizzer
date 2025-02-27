@@ -1,21 +1,18 @@
 using Quizzer.Data.Entities;
-using Quizzer.Models.QuestionVm;
 
 namespace Quizzer.Models.QuizzVm;
 
-public class QuizzDetailsVm
+public class QuizzDetailsVm(Quizz quizz)
 {
-	public Guid Id { get; set; }
-	public string Title { get; set; } = string.Empty;
-	public string Description { get; set; } = string.Empty;
-	public ICollection<QuestionIndexVm> Questions { get; set; } = [];
+	public Guid Id { get; } = quizz.Id;
+	public string Title { get; } = quizz.Title;
+	public string Description { get; } = quizz.Description;
+	public ICollection<QuestionVm> Questions { get; } = quizz.Questions.Select(x => new QuestionVm(x)).ToList();
 
-	public static QuizzDetailsVm FromEntity(Quizz quizz) =>
-		new()
-		{
-			Id = quizz.Id,
-			Title = quizz.Title,
-			Description = quizz.Description,
-			Questions = quizz.Questions.Select(QuestionIndexVm.FromEntity).ToList()
-		};
+	public class QuestionVm(Question question)
+	{
+		public string QuestionText { get; } = question.QuestionText;
+		public string[] Answers { get; } = question.Answers;
+		public int CorrectAnswerIndex { get; } = question.CorrectAnswerIndex;
+	}
 }

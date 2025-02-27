@@ -11,7 +11,7 @@ public class QuizzController(QuizzRepository repository) : Controller
 	{
 		var entities = await repository.GetAllAsync();
 		
-		var model = QuizzIndexVm.FromEntities(entities);
+		var model = new QuizzIndexVm(entities);
 		
 		return View(model);
 	}
@@ -51,7 +51,7 @@ public class QuizzController(QuizzRepository repository) : Controller
 			}
 		]);
 		
-		var model = QuizzDetailsVm.FromEntity(entity);
+		var model = new QuizzDetailsVm(entity);
 		
 		return View(model);
 	}
